@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import TochableButton from "../components/ui/TochableButton";
+import CustomButton from "../components/ui/CustomButton";
+import { theme } from "@/constants/theme";
 
 export default function Register() {
     const router = useRouter();
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Register</Text>
-            <TochableButton text="Back to Home" onPress={() => router.back()} />
+            <CustomButton text="Back to Home" onPress={() => router.back()} />
         </View>
     );
 }
@@ -22,6 +23,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "bold",
         marginBottom: 20,
-        color: "#ffffff",
+        color: theme.colors.text,
     },
 });
