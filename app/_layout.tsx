@@ -6,6 +6,7 @@ import { theme } from "@/constants/theme";
 import SafeAreaContainer from "@/components/ui/SafeAreaContainer";
 import { useEffect } from "react";
 import { Platform } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import Loading from "@/components/ui/Loading";
 import { useAuthStore } from "@/store/authStore";
@@ -35,12 +36,11 @@ export default function RootLayout() {
     return <Loading />;
   }
 
-
-
   // 주석이하 부분은 절대 코드 건들지마
+
   return (
-    <GlobalCssProvider theme={theme}>
-      <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.colors.background }}>
+    <SafeAreaProvider>
+      <GlobalCssProvider theme={theme}>
         <NotchTopBar style="dark" />
         <Stack
           screenOptions={{
@@ -51,11 +51,12 @@ export default function RootLayout() {
           <Stack.Protected guard={authStore.isLoggedIn}>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack.Protected>
+
           <Stack.Protected guard={!authStore.isLoggedIn}>
             <Stack.Screen name="(login)" options={{ headerShown: false }} />
           </Stack.Protected>
         </Stack >
-      </SafeAreaContainer>
-    </GlobalCssProvider>
+      </GlobalCssProvider >
+    </SafeAreaProvider>
   );
 }

@@ -2,15 +2,18 @@ import { StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import CustomButton from "@/components/ui/CustomButton";
 import { theme } from "@/constants/theme";
+import SafeAreaContainer from "@/components/ui/SafeAreaContainer";
 
 export default function Terms() {
     const router = useRouter();
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Terms and Conditions</Text>
-            <Text style={styles.text}>Welcome to the expense tracker app terms.</Text>
-            <CustomButton text="Back" onPress={() => router.back()} />
-        </View>
+        <SafeAreaContainer>
+            <View style={styles.container}>
+                <Text style={styles.title}>Terms and Conditions</Text>
+                <Text style={styles.text}>Welcome to the expense tracker app terms.</Text>
+                <CustomButton text="Back" onPress={() => router.back()} />
+            </View>
+        </SafeAreaContainer>
     );
 }
 
@@ -19,7 +22,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: theme.colors.background,
         padding: 20,
     },
     title: {
