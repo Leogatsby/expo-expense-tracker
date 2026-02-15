@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
-import { theme } from "@/constants/theme";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface SafeAreaContainerProps {
     children: React.ReactNode;
@@ -11,7 +9,7 @@ interface SafeAreaContainerProps {
 
 export default function SafeAreaContainer({ children, style }: SafeAreaContainerProps) {
     return (
-        <SafeAreaView style={[{ flex: 1, backgroundColor: theme.colors.background }, style]}>
+        <SafeAreaView style={[{ flex: 1 }, style]}>
             {children}
         </SafeAreaView>
     );
