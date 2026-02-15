@@ -14,7 +14,7 @@ import { useLocalStore } from "@/store/LocalStorageStore";
 
 export default function RootLayout() {
   const authStore = useAuthStore();
-  const LocalStorageStore = useLocalStore('auth-storage');
+  //const LocalStorageStore = useLocalStore('auth-storage');
 
   // BottomBar 설정
   useEffect(() => {
@@ -26,11 +26,11 @@ export default function RootLayout() {
     ConfigBottomBar();
   }, []);
 
-  // 디버깅용 로그
-  useEffect(() => {
-    console.log('현재 LocalStore 데이터:', LocalStorageStore);
-    console.log('현재 authStore 전체 상태:', authStore);
-  }, [LocalStorageStore, authStore]);
+  // // 디버깅용 로그
+  // useEffect(() => {
+  //   console.log('현재 LocalStore 데이터:', LocalStorageStore);
+  //   console.log('현재 authStore 전체 상태:', authStore);
+  // }, [LocalStorageStore, authStore]);
 
   if (!authStore._hasHydrated) {
     return <Loading />;
@@ -51,7 +51,6 @@ export default function RootLayout() {
           <Stack.Protected guard={authStore.isLoggedIn}>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack.Protected>
-
           <Stack.Protected guard={!authStore.isLoggedIn}>
             <Stack.Screen name="(login)" options={{ headerShown: false }} />
           </Stack.Protected>
