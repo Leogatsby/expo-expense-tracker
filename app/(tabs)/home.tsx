@@ -1,14 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
-import CustomButton from "../components/ui/CustomButton";
 import { theme } from "@/constants/theme";
 
-export default function Register() {
-    const router = useRouter();
+export default function HomeScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Register</Text>
-            <CustomButton text="Back to Home" onPress={() => router.back()} />
+            <Text style={styles.title}>가계부 홈</Text>
+            <Text style={styles.subtitle}>오늘의 지출을 기록해보세요.</Text>
         </View>
     );
 }
@@ -18,11 +15,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: theme.colors.background,
     },
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        marginBottom: 20,
         color: theme.colors.text,
+    },
+    subtitle: {
+        fontSize: 16,
+        color: theme.colors.text,
+        marginTop: 8,
     },
 });

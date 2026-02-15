@@ -7,21 +7,40 @@ import SafeAreaContainer from "@/components/ui/SafeAreaContainer";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 
-
+import Loading from "@/components/ui/Loading";
+import { useAuthStore } from "@/store/authStore";
+import { useLocalStore } from "@/store/LocalStorageStore";
 
 export default function RootLayout() {
+  const authStore = useAuthStore();
+  const LocalStorageStore = useLocalStore('auth-storage');
+
+  // BottomBar 설정
   useEffect(() => {
     async function ConfigBottomBar() {
       if (Platform.OS === "android") {
-        await BottomBar.setButtonStyleAsync("dark"); // 검은색 버튼으로 변경
+        await BottomBar.setButtonStyleAsync("dark");
       }
     }
     ConfigBottomBar();
   }, []);
 
+  // 디버깅용 로그
+  useEffect(() => {
+    console.log('현재 LocalStore 데이터:', LocalStorageStore);
+    console.log('현재 authStore 전체 상태:', authStore);
+  }, [LocalStorageStore, authStore]);
+
+  if (!authStore._hasHydrated) {
+    return <Loading />;
+  }
+
+
+
+  // 주석이하 부분은 절대 코드 건들지마
   return (
-    <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <GlobalCssProvider theme={theme}>
+    <GlobalCssProvider theme={theme}>
+      <SafeAreaContainer style={{ flex: 1, backgroundColor: theme.colors.background }}>
         <NotchTopBar style="dark" />
         <Stack
           screenOptions={{
@@ -29,11 +48,14 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: theme.colors.background },
           }}
         >
-          <Stack.Screen name="index" />
-          <Stack.Screen name="login" />{/*사실상 명시화 역할만 함*/}
-          <Stack.Screen name="register" />
+          <Stack.Protected guard={authStore.isLoggedIn}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack.Protected>
+          <Stack.Protected guard={!authStore.isLoggedIn}>
+            <Stack.Screen name="(login)" options={{ headerShown: false }} />
+          </Stack.Protected>
         </Stack >
-      </GlobalCssProvider>
-    </SafeAreaContainer>
+      </SafeAreaContainer>
+    </GlobalCssProvider>
   );
 }

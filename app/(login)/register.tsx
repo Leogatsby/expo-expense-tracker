@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import CustomButton from "../../components/ui/CustomButton";
+import CustomButton from "@/components/ui/CustomButton";
 import { theme } from "@/constants/theme";
 
-export default function Login() {
+export default function Register() {
     const router = useRouter();
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-            <CustomButton text="Back to Home" onPress={() => router.push("/")} />
-            <CustomButton text="LoginBrother" onPress={() => router.push("/login/loginbrother")} />
+            <Text style={styles.title}>Register</Text>
+            <CustomButton text="Back to Login" onPress={() => router.back()} />
         </View>
     );
 }
@@ -19,6 +18,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: theme.colors.background,
     },
     title: {
         fontSize: 24,
